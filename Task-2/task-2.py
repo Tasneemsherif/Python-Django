@@ -15,6 +15,8 @@ Requirements
 8. Ensure the program handles user input errors gracefully.
 
 '''
+
+# item details such as name, price, and quantity
 class Inventory:
     def __init__(self, name, price, quantity ) -> None:
         self.name = name
@@ -22,9 +24,12 @@ class Inventory:
         self.quantity = quantity
         self.sold_quantity = 5
 
-
+# Add New Item
 def add_item (inventory):
-    new_item = input("Enter the new item name: ").strip().upper()
+    # Receive input from the user to add new items
+    new_item = (
+        input("Enter the new item name: ").strip().upper()
+    )  # Use string methods to manipulate item names
     try:
         item_price = float(input("Enter the price in this form 0.0 : "))
         item_quantity = int(input("Enter the quantity: "))
@@ -35,6 +40,7 @@ def add_item (inventory):
     inventory.append(Inventory(new_item, item_price, item_quantity))
     print (f"Item: {new_item} added successfully")
 
+# Update Stock
 def update_stock(inventory):
     new_item = input("Enter the Updated item: ").strip().upper()
 
@@ -50,6 +56,7 @@ def update_stock(inventory):
                 return
     print (f"Item '{new_item}' not found.")
 
+# Generate Sales Report
 def gen_report (inventory) :
     total_revenue = 0.0
     print("\nSales Report:")
@@ -57,7 +64,7 @@ def gen_report (inventory) :
         "{:<20} {:>10} {:>10} {:>15}".format("Item", "Price", "Sold", "Total Revenue")
     )
     print("-" * 55)
-
+    # arithmetic operations to calculate total revenue
     for item in inventory:
         item_revenue = item.sold_quantity * item.price
         total_revenue += item_revenue
@@ -70,7 +77,7 @@ def gen_report (inventory) :
     print("-" * 55)
     print(f"Total Revenue: {total_revenue:.2f}\n")
 
-
+# Popular Items
 def get_top_items(inventory):
     sorted_inventory = sorted(inventory, key=lambda x: x.sold_quantity, reverse=True)
     top_items = sorted_inventory[:3]
